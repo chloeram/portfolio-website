@@ -1,0 +1,75 @@
+@import url("https://use.typekit.net/nnc8xts.css");
+
+/* The landing page container */
+.landing-container {
+    text-align: center;
+    background: #051011;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 5% 5%;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* The header title (my name) */
+.header-container {
+    position: absolute;
+    text-align: left;
+    width: 80%;
+    max-width: 650px;
+    top: 25%;
+    left: 15%;
+    bottom: 25%;
+    right: 15%;
+    margin-bottom: 3rem;
+}
+
+h1 {
+    color: white;
+    font-size: 5rem;
+    font-family: "neue-haas-grotesk-display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+}
+
+p {
+    color: white;
+    font-size: 0.9rem;
+    font-family: "neue-haas-grotesk-display", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: 0.1rem; 
+    margin-top: 0px;
+    margin-bottom: 0px;;
+    line-height: 1.3;
+}
+
+.links-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 80%;
+    max-width: 600px;
+    margin-top: 50px;
+    bottom: 25%;
+    right: 15%;
+}
+
+.nav-link {
+    font-family: "neue-haas-grotesk-display", sans-serif;
+    font-weight: 200;
+    font-style: normal;
+    letter-spacing: 0.04rem; 
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+    margin: 5px 0;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+}
