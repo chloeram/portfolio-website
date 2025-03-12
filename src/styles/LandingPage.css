@@ -3,8 +3,15 @@
 /* The landing page container */
 .landing-container {
     text-align: center;
-    background: #051011;
-    height: 100vh;
+    position: fixed;  /* Maintains fixed place */
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh; 
+    overflow: hidden; 
+    background: #0D1211;
+    width: 100vw; /* Full width */
+    height: 100vh; /* Full height */
     display: flex;
     flex-direction: column;
     padding: 5% 5%;
@@ -14,7 +21,7 @@
 
 /* The header title (my name) */
 .header-container {
-    position: absolute;
+    position: fixed;
     text-align: left;
     width: 80%;
     max-width: 650px;
@@ -31,7 +38,7 @@ h1 {
     font-family: "neue-haas-grotesk-display", sans-serif;
     font-weight: 400;
     font-style: normal;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.03rem;
     margin-bottom: 1rem;
 }
 
@@ -39,7 +46,7 @@ p {
     color: white;
     font-size: 0.9rem;
     font-family: "neue-haas-grotesk-display", sans-serif;
-    font-weight: 400;
+    font-weight: 300;
     font-style: normal;
     letter-spacing: 0.1rem; 
     margin-top: 0px;
@@ -48,7 +55,7 @@ p {
 }
 
 .links-container {
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -72,4 +79,23 @@ p {
 }
 
 .nav-link:hover {
+}
+
+/* The 3D background container */
+.threejs-background {
+    position: fixed;  /* Maintains fixed place */
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh; 
+    overflow: hidden; 
+}
+
+/* Content (Text) */
+.content {
+    position: relative;
+    z-index: 2; /* Ensures it's on top */
+    text-align: center;
+    max-width: 600px;
+    color: white;
 }

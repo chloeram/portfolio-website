@@ -1,58 +1,32 @@
-import { useRef, useEffect } from "react";
-import * as THREE from "three";
+import { React, useEffect } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import Water from "./Pond";
 
 const LilyPondScene = () => {
-    const mountRef = useRef(null);
+    return (
+        <div className="threejs-background">
+            <Canvas>
+                <CameraSetup /> {/* Correctly use CameraSetup */}
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[5, 10, 5]} intensity={1} />
+                <Water />
+                <OrbitControls enableRotate={false} enablePan={false} enableZoom={false} />
+            </Canvas>
+        </div>
+    );
+};
+
+// Custom Camera Component
+const CameraSetup = () => {
+    const { camera } = useThree();
 
     useEffect(() => {
-        // Set up scene
-        const scene = new THREE.Scene();
+        camera.position.set(0, 10, 0); // Directly above the scene
+        camera.lookAt(0, 0, 0); // Look straight at the center
+    }, [camera]);
 
-        // Set up camera
-        const camera = new THREE.PerspectiveCamera(
-            75,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000
-        );
-        camera.position.set(0, 5, 10);
-
-        // Set up renderer
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        mountRef.current.appendChild(renderer.domElement);
-
-        // Create pond (a simple plane)
-        const pondGeometry = new THREE.PlaneGeometry(20, 20);
-        const pondMaterial = new THREE.MeshStandardMaterial({
-            color: 0x1e90ff, 
-            side: THREE.DoubleSide 
-        });
-        const pond = new THREE.Mesh(pondGeometry, pondMaterial);
-        pond.rotation.x = -Math.PI / 2; // Flat Layout
-        scene.add(pond);
-
-        // Add lighting
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(5, 10, 5);
-        scene.add(light);
-
-        // Animation loop
-        const animate = () => {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        };
-
-        animate();
-
-        // Handle cleanup
-        return () => {
-            mountRef.current.removeChild(renderer.domElement);
-            renderer.dispose();
-        };
-    }, []);
-
-    return <div ref={mountRef} style={{ width: "100vw", height: "100vh" }} />;
+    return null;
 };
 
 export default LilyPondScene;
