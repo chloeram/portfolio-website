@@ -5,7 +5,7 @@ import UnderConstruction from "./components/construction";
 function App() {
     return (
         <div>
-            <UnderConstruction />
+            <LandingPage />
         </div>
     );
 }

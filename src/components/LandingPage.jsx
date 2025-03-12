@@ -6,8 +6,6 @@ const LandingPage = () => {
     return (
         <div className="landing-container">
 
-            <LilyPondScene />
-
             <div className="content">
                 <div className="header-container">
                     <h1>hi. i'm chloe.</h1>
