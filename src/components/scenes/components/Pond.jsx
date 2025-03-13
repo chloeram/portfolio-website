@@ -1,19 +1,17 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import { useRef, useState } from "react";
-import waterVertexShader from './shaders/waterVertex.glsl?raw';
-import waterFragmentShader from './shaders/waterFragment.glsl?raw';
-
 
 // Custom Water Shader
 const WaterShader = {
     uniforms: {
-        uTime: { value: 0 },
-        uRipplePosition: { value: new THREE.Vector2(0.5, 0.5) },
-        uRippleStrength: { value: 0.0 },
-        uWaterColor: { value: new THREE.Color("#364B45") }, // ✅ Single uniform pond color
-        uOpacity: { value: 0.75 },
-    },
+    uTime: { value: 0 },
+    uRipplePosition: { value: new THREE.Vector2(0.5, 0.5) },
+    uRippleStrength: { value: 0.0 },
+    uRippleStartTime: { value: 0 }, // ✅ New uniform for tracking ripple start
+    uWaterColor: { value: new THREE.Color("#364B45") },
+    uOpacity: { value: 0.75 },
+},
     vertexShader: `
 varying vec2 vUv;
 varying float vWave;
@@ -81,7 +79,7 @@ float noise(vec2 st) {
 
 void main() {
     // **Pixelation Effect (Lower Resolution Sampling)**
-    float pixelSize = 0.005; // Increase for stronger pixelation
+    float pixelSize = 0.0013; // Increase for stronger pixelation
     vec2 pixelatedUv = floor(vUv / pixelSize) * pixelSize; // Snap UV coordinates to a pixel grid
 
     // **Base Water Color with Richer Green-Blue Depth**
@@ -89,12 +87,12 @@ void main() {
     float depthNoise = noise(pixelatedUv * 10.0 + uTime * 0.08) * 0.18;
 
     // **Wave Motion with Softer Curves (Using Pixelated UV)**
-    float waveDetail = noise(pixelatedUv * 15.0 + uTime * 0.20) * 0.1;
+    float waveDetail = noise(pixelatedUv * 2.0 + uTime * 0.20) * 0.2;
     float waveMovement = sin((pixelatedUv.x + pixelatedUv.y) * 10.0 + uTime * 0.2) * 0.01;
     float waveStrength = depthNoise + waveDetail + waveMovement;
 
     // **Soft Posterization (Balanced Blending)**
-    float stepAmount = 50.0;  // More steps for smoother posterization
+    float stepAmount = 40.0;  // More steps for smoother posterization
     float posterizedWave = floor(waveStrength * stepAmount) / stepAmount;
 
     // **Restored Color Palette (More Depth, Fewer Light Greens)**
@@ -190,28 +188,3 @@ const Water = () => {
 };
 
 export default Water;
-
-/*
-const Water = () => {
-    const waterRef = useRef();
-
-    useFrame(({ clock }) => {
-        waterRef.current.material.uniforms.time.value = clock.getElapsedTime();
-    });
-
-    return (
-        <mesh ref={waterRef} rotation-x={-Math.PI / 2} position={[0, 0, 0]}>
-            <planeGeometry args={[10, 10, 128, 128]} />
-            <shaderMaterial
-                vertexShader={waterVertexShader}
-                fragmentShader={waterFragmentShader}
-                uniforms={{
-                    time: { value: 0 },
-                    normalMap: { value: new THREE.TextureLoader().load('/textures/water_normals.jpg') }
-                }}
-            />
-        </mesh>
-    );
-};
-export default Water;
-*/

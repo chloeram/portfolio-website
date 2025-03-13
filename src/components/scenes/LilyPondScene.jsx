@@ -1,7 +1,7 @@
 import { React, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import Water from "./Pond";
+import Water from "/src/components/scenes/components/Pond.jsx";
 
 const LilyPondScene = () => {
     return (

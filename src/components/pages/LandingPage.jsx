@@ -1,11 +1,12 @@
 import React from "react";
-import "../styles/LandingPage.css";
-import LilyPondScene from "./LilyPondScene";
+import "../../styles/LandingPage.css";
+import LilyPondScene from "../scenes/LilyPondScene";
 
 const LandingPage = () => {
     return (
         <div className="landing-container">
 
+            <LilyPondScene />
             <div className="content">
                 <div className="header-container">
                     <h1>hi. i'm chloe.</h1>
